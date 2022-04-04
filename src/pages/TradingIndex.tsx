@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { productSymbol } from '../constants/constants';
 import OrderBookTable from '../components/OrderBookTable';
@@ -10,7 +10,6 @@ const TradingIndex = () => {
   const location = useLocation();
   const state = location.state as { from: string };
   const pathname = location.pathname;
-  const [queryKey, setQueryKey] = useState([productSymbol[0], L2_ORDERBOOK]);
   const { data, action } = useOrderbookSubscription();
   useEffect(() => {
     if (state) {
@@ -38,7 +37,6 @@ const TradingIndex = () => {
         ]
       }
     });
-    setQueryKey([pathname.substring(1), L2_ORDERBOOK]);
   }, [pathname]);
   // useEffect(() => {
   //   if (data.isSuccess) {

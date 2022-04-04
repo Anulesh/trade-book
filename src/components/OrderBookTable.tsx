@@ -159,8 +159,11 @@ const OrderBookTable = ({ tradeData }: OrderBookTablePropTypes) => {
   };
   const handleMouseOut = () => {
     setShowPopover(false);
-    //console.log('evt current', evt.currentTarget)
   };
+  const hoverIndex =
+    currentOrderType === 'sell' && tradeData.data
+      ? tradeData.data.sell.length - currentIndex
+      : currentIndex + 1;
   const [toggleState, dispatch] = useReducer(reducer, initialToggleState);
   return (
     <>
@@ -190,7 +193,7 @@ const OrderBookTable = ({ tradeData }: OrderBookTablePropTypes) => {
                 <span className="left">Avg Price</span>
                 <span>
                   {orderbookRecord
-                    ? `~${(orderbookRecord['cumulativePrice'] / (currentIndex + 1)).toFixed(1)}`
+                    ? `~${(orderbookRecord['cumulativePrice'] / hoverIndex).toFixed(1)}`
                     : ''}
                 </span>
               </OrderDetailsFlex>
