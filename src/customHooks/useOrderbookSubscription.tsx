@@ -20,7 +20,7 @@ const cumulativePriceCalculater = (orderBook: sellBuy[], type: typeTrade) => {
   return cumulativeArr;
 };
 const tradeSizeUpdater = (oldTradeData: looseObj, newTradeData: OrderbookData['buy']) => {
-  const returnTradeSorted = newTradeData.map((d, idx) => {
+  const returnTradeSorted = newTradeData.map((d) => {
     const dataToModify = { ...d };
     dataToModify['sizeChange'] = 0;
     // eslint-disable-next-line no-prototype-builtins
@@ -55,7 +55,6 @@ function useOrderbookSubscription(
     websocket.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
       queryClient.setQueryData(channelName, () => {
-        //console.log('hey', tradeData);
         const sendData = produce<OrderbookData>(data, (draftData) => {
           if (tradeData.current && draftData) {
             if (draftData.type === channelName && tradeData.current.type === channelName) {
