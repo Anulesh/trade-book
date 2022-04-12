@@ -161,9 +161,11 @@ const OrderBookTable = ({ tradeData }: OrderBookTablePropTypes) => {
     setShowPopover(false);
   };
   const hoverIndex =
-    currentOrderType === 'sell' && tradeData.data
-      ? tradeData.data.sell.length - currentIndex
-      : currentIndex + 1;
+    tradeData.data && tradeData.data.sell
+      ? currentOrderType === 'sell' && tradeData.data
+        ? tradeData.data.sell.length - currentIndex
+        : currentIndex + 1
+      : 1;
   const [toggleState, dispatch] = useReducer(reducer, initialToggleState);
   return (
     <>
